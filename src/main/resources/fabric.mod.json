@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "glimchat",
+  "version": "${version}",
+  "name": "Glimchat",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/glimchat/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "main": ["pigcart.glimchat.GlimChat"],
+    "modmenu": ["pigcart.glimchat.config.ModMenuCompat"],
+    "cotton-client-commands": ["pigcart.glimchat.commands.GlimeshBaseCommand"]
+  },
+  "mixins": [
+    "glimchat.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": "*",
+    "fabric": "*",
+    "minecraft": "*"
+  }
+}

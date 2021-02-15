@@ -1,0 +1,36 @@
+{
+  "config.glimchat.title": "Glimesh Chat Bridge",
+  "config.glimchat.category.default": "Glimesh Chat Bridge config",
+  "config.glimchat.default.channel": "Glimesh channel",
+  "config.glimchat.default.username": "Username",
+  "config.glimchat.default.username.tooltip": "Your Glimesh username",
+  "config.glimchat.default.oauthKey": "OAuth Token",
+  "config.glimchat.default.oauthKey.tooltip": "Your Glimesh OAuth token",
+  "config.glimchat.category.cosmetics": "Cosmetics",
+  "config.glimchat.cosmetics.prefix": "Prefix",
+  "config.glimchat.cosmetics.prefix.tooltip": "Put this at the start of your messages to send them to a Glimesh channel",
+  "config.glimchat.cosmetics.dateFormat": "Timestamp format",
+  "config.glimchat.cosmetics.dateFormat.tooltip": "Customize the timestamp format messages are going to follow",
+  "config.glimchat.cosmetics.ignorelist": "Ignore list",
+  "config.glimchat.cosmetics.ignorelist.tooltip": "Messages from users in this list won't be displayed",
+  "config.glimchat.cosmetics.glimeshWatchSuggestions": "Suggestions for /glimesh watch",
+  "config.glimchat.cosmetics.glimeshWatchSuggestions.tooltip": "Autocomplete /glimesh watch channel names with names from users in your server",
+
+  "text.glimchat.command.base.noargs1": "Welcome to the Minecraft-Glimesh Bridge mod!",
+  "text.glimchat.command.base.noargs2": "To enable it just do /glimesh enable when you're done setting up the config.",
+
+  "text.glimchat.command.disable.already_disabled": "Glimesh integration is already disabled!",
+  "text.glimchat.command.disable.disabled": "Glimesh integration is now disabled!",
+
+  "text.glimchat.command.enable.already_enabled": "Glimesh integration is already enabled!",
+  "text.glimchat.command.enable.set_config": "Before doing that you have to set your config!",
+  "text.glimchat.command.enable.select_channel": "You won't connect to a channel because you haven't selected any. You can select a channel with /glimesh watch [channel]",
+  "text.glimchat.command.enable.connecting": "Connecting...",
+
+  "text.glimchat.command.watch.switching": "Switching channels to '%s'...",
+  "text.glimchat.command.watch.connect_on_enable": "The mod will connect to '%s' as soon as you enable it.",
+
+  "text.glimchat.chat.integration_disabled": "Glimesh integration is not enabled, to enable it do /glimesh enable.",
+  "text.glimchat.bot.connected": "Connected to channel '%s'",
+  "text.glimchat.bot.kicked": "Kicked from the current channel because: '%s'"
+}
