@@ -10,12 +10,13 @@ archivesBaseName = project.archives_base_name
 version = project.mod_version
 group = project.maven_group
 repositories {
-    jcenter()
+    mavenCentral()
     maven {
         name = 'CottonMC'
         url = 'https://server.bbkr.space/artifactory/libs-release'
     }
     maven { url = 'http://maven.sargunv.s3-website-us-west-2.amazonaws.com/' }
+    maven { url "https://maven.shedaniel.me/" }
 }
 
 dependencies {
@@ -44,8 +45,9 @@ dependencies {
     implementation "org.java-websocket:Java-WebSocket:1.5.1"
     include "org.java-websocket:Java-WebSocket:1.5.1"
 
-    // PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
-    // You may need to force-disable transitiveness on them.
+    // JSON - but whys it formatted different? lmao i'm so unaware of what I do.
+    implementation group: 'org.json', name: 'json', version: '20201115'
+    include group: 'org.json', name: 'json', version: '20201115'
 }
 
 processResources {

@@ -17,7 +17,7 @@ public class GlimChat implements ModInitializer {
     }
 
     public static void addGlimeshMessage(String username, String message, Formatting textColor) {
-        MutableText usernameText = new LiteralText(username + ": ");
+        MutableText usernameText = new LiteralText(username).formatted(Formatting.BLUE).append(": ");
         MutableText messageBodyText = new LiteralText(message).formatted(textColor);
         MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, usernameText.append(messageBodyText), UUID.randomUUID());
     }

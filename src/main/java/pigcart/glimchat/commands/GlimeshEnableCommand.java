@@ -1,5 +1,6 @@
 package pigcart.glimchat.commands;
 
+import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import io.github.cottonmc.clientcommands.ArgumentBuilders;
 import io.github.cottonmc.clientcommands.CottonClientCommandSource;
@@ -19,8 +20,13 @@ public class GlimeshEnableCommand {
     public static boolean alreadyEnabled = false;
     public static LiteralArgumentBuilder<CottonClientCommandSource> getArgumentBuilder() {
         return ArgumentBuilders.literal("enable")
+                .then(ArgumentBuilders.argument("channel_name", StringArgumentType.string())
                 .executes(ctx -> {
+                    String channelName = StringArgumentType.getString(ctx, "channel_name");
+
                     ModConfig config = ModConfig.getConfig();
+                    config.setChannel(channelName);
+                    config.save();
                     if (alreadyEnabled) {
                         ctx.getSource().sendFeedback(new TranslatableText("text.glimchat.command.enable.already_enabled"));
                         return 1;
@@ -38,7 +44,7 @@ public class GlimeshEnableCommand {
 
                     try {
                         // open websocket
-                        GlimChat.addGlimeshMessage("GlimChat", "Attempting to connect", Formatting.BOLD);
+                        GlimChat.addGlimeshMessage("", "Opening connection to Glimesh.", Formatting.BOLD);
                         final WebsocketClientEndpoint c = new WebsocketClientEndpoint(new URI("wss://glimesh.tv/api/socket/websocket?vsn=2.0.0&client_id=535cd97ab33c5cd159859d4a4849eb7a635f96fead877dd51004c4abb48e1d3d"));
                         c.connect();
                         return 1;
@@ -48,6 +54,6 @@ public class GlimeshEnableCommand {
                         GlimChat.addGlimeshMessage("URISyntaxException exception", ex.getMessage(), Formatting.BOLD);
                         return -1;
                     }
-    });
+    }));
     }
 }

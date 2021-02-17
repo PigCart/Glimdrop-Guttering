@@ -7,6 +7,9 @@ import net.minecraft.util.Formatting;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.drafts.Draft;
 import org.java_websocket.handshake.ServerHandshake;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import pigcart.glimchat.config.ModConfig;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -34,7 +37,7 @@ public class WebsocketClientEndpoint extends WebSocketClient {
 
     @Override
     public void onOpen(ServerHandshake handshakedata) {
-        GlimChat.addGlimeshMessage("","Sending Join Request", Formatting.BOLD);
+        GlimChat.addGlimeshMessage("","Connection open. Sending join request.", Formatting.BOLD);
         send("[\"1\",\"1\",\"__absinthe__:control\",\"phx_join\",{}]");
 
         //this.scheduleHeartbeat();
@@ -42,23 +45,45 @@ public class WebsocketClientEndpoint extends WebSocketClient {
 
     @Override
     public void onMessage(String message) {
-        GlimChat.addGlimeshMessage("Message Received", message, Formatting.GOLD);
+        System.out.println("Glimesh Message: "+message);
+        if (message.contains("subscription:data")) {
+            //convert message to JSON and get useful info to build the minecraft chat message
 
-        if (message.equals("[\"1\",\"1\",\"__absinthe__:control\",\"phx_reply\",{\"response\":{},\"status\":\"ok\"}]")) {
-            //send("query{channel(username:\"PigCart\"){id}}");
-            //IDK HOW TO QUERY THE API THIS DOESN'T WORK
-            //FOR NOW JUST USE channelId: 2586 TO CONNECT TO PIGCART
-            GlimChat.addGlimeshMessage("", "Attempting to subscribe to chat", Formatting.BOLD);
-            send("[\"1\",\"1\",\"__absinthe__:control\",\"doc\",{\"query\":\"subscription{ chatMessage(channelId: 2586) { user { displayname } message } }\",\"variables\":{} }]");
-            //send("[\"6\",\"7\",\"__absinthe__:control\",\"doc\",{\"query\":\"subscription{ chatMessage(channelId: \"2\")    { user { username avatar } message } }\",\"variables\":{} }]");
+            //IDK what I'm supposed to do with this other data so I'm just going to get rid of it. Shut up I am the best programmer.
+            String jsonStr = message.substring(135, message.length() - 1);
+
+            //get the displayname and message from the received json. This feels clunky there's probably a much better way
+            JSONObject jsonObj = new JSONObject(jsonStr);
+            JSONObject result = jsonObj.getJSONObject("result");
+            JSONObject data = result.getJSONObject("data");
+            JSONObject chatMessage = data.getJSONObject("chatMessage");
+            String msg = chatMessage.getString("message");
+            JSONObject user = chatMessage.getJSONObject("user");
+            String displayname = user.getString("displayname");
+            GlimChat.addGlimeshMessage(displayname,msg,Formatting.WHITE);
         }
-
+        else if (message.equals("[\"1\",\"1\",\"__absinthe__:control\",\"phx_reply\",{\"response\":{},\"status\":\"ok\"}]")) {
+            GlimChat.addGlimeshMessage("","Glimesh is ready! Looking up ID for " + ModConfig.getConfig().getChannel(),Formatting.BOLD);
+            send("[\"1\",\"1\",\"__absinthe__:control\",\"doc\",{\"query\":\"query{channel(username:\\\""+ModConfig.getConfig().getChannel()+"\\\"){id}}\",\"variables\":{}}]");
+        }
+        else if (message.startsWith("[\"1\",\"1\",\"__absinthe__:control\",\"phx_reply\",{\"response\":{\"data\":{\"channel\":{\"id")) {
+            // so I COULD parse all the json... ooooorrrr I could DO THIS CURSED THING INSTEAD:
+            String channelId = message.substring(82, message.length() - 20);
+            GlimChat.addGlimeshMessage("", "Found ID: " + channelId + ". Joining chat.", Formatting.BOLD);
+            send("[\"1\",\"1\",\"__absinthe__:control\",\"doc\",{\"query\":\"subscription{chatMessage(channelId:\\\"" + channelId + "\\\"){user{displayname}message}}\",\"variables\":{}}]");
+        }
+        else if (message.startsWith("[\"1\",\"1\",\"__absinthe__:control\",\"phx_reply\",{\"response\":{\"subscriptionId")) {
+            GlimChat.addGlimeshMessage("","Connected to " + ModConfig.getConfig().getChannel(),Formatting.BOLD);
+        }
+        else {
+            GlimChat.addGlimeshMessage("Message Received", message, Formatting.GOLD);
+        }
     }
 
     @Override
     public void onClose(int code, String reason, boolean remote) {
         // The codecodes are documented in class org.java_websocket.framing.CloseFrame
-        GlimChat.addGlimeshMessage("Connection Closed by " + (remote ? "remote peer" : "us") + " Code: " + code + " Reason", reason, Formatting.RED);
+        GlimChat.addGlimeshMessage("Connection Closed by " + (remote ? "remote peer" : "us") + " Code: " + code + " Reason", reason, Formatting.BOLD);
         // stop heartbeat
         //scheduledExecutorService.shutdownNow();
 
