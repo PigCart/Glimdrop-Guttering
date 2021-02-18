@@ -11,6 +11,7 @@ import net.minecraft.util.Formatting;
 import pigcart.glimchat.config.ModConfig;
 
 public class GlimChat implements ModInitializer {
+    public static WebsocketClientEndpoint websocketClientEndpoint;
     @Override
     public void onInitialize() {
         ModConfig.getConfig().load();
@@ -21,4 +22,5 @@ public class GlimChat implements ModInitializer {
         MutableText messageBodyText = new LiteralText(message).formatted(textColor);
         MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, usernameText.append(messageBodyText), UUID.randomUUID());
     }
+
 }

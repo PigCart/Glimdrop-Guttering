@@ -17,15 +17,15 @@
   "config.glimchat.cosmetics.glimeshWatchSuggestions.tooltip": "Autocomplete /glimesh watch channel names with names from users in your server",
 
   "text.glimchat.command.base.noargs1": "Welcome to the Minecraft-Glimesh Bridge mod!",
-  "text.glimchat.command.base.noargs2": "To enable it just do /glimesh enable when you're done setting up the config.",
+  "text.glimchat.command.base.noargs2": "To enable it just do /glimesh connect when you're done setting up the config.",
 
   "text.glimchat.command.disable.already_disabled": "Glimesh integration is already disabled!",
   "text.glimchat.command.disable.disabled": "Glimesh integration is now disabled!",
 
-  "text.glimchat.command.enable.already_enabled": "Glimesh integration is already enabled!",
-  "text.glimchat.command.enable.set_config": "Before doing that you have to set your config!",
-  "text.glimchat.command.enable.select_channel": "You won't connect to a channel because you haven't selected any. You can select a channel with /glimesh watch [channel]",
-  "text.glimchat.command.enable.connecting": "Connecting...",
+  "text.glimchat.command.connect.already_enabled": "Glimesh integration is already enabled!",
+  "text.glimchat.command.connect.set_config": "Before doing that you have to set your config!",
+  "text.glimchat.command.connect.select_channel": "You won't connect to a channel because you haven't selected any. You can select a channel with /glimesh watch [channel]",
+  "text.glimchat.command.connect.connecting": "Connecting...",
 
   "text.glimchat.command.watch.switching": "Switching channels to '%s'...",
   "text.glimchat.command.watch.connect_on_enable": "The mod will connect to '%s' as soon as you enable it.",

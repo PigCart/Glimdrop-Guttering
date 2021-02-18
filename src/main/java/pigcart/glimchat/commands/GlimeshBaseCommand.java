@@ -10,12 +10,10 @@ public class GlimeshBaseCommand implements ClientCommandPlugin {
     @Override
     public void registerCommands(CommandDispatcher<CottonClientCommandSource> dispatcher) {
         dispatcher.register(ArgumentBuilders.literal("glimesh")
-                // The command to run if "glimesh" is entered with the argument "enable"
-                .then(GlimeshEnableCommand.getArgumentBuilder())
+                // The command to run if "glimesh" is entered with the argument "connect"
+                .then(GlimeshConnectCommand.getArgumentBuilder())
                 // If the argument is "disable"
-                //.then(GlimeshDisableCommand.getArgumentBuilder())
-                // if arg is "watch"
-                //.then(GlimeshWatchCommand.getArgumentBuilder())
+                .then(GlimeshDisableCommand.getArgumentBuilder())
                 .executes(source -> {
                     source.getSource().sendFeedback(new TranslatableText("text.glimchat.command.base.noargs1"));
                     source.getSource().sendFeedback(new TranslatableText("text.glimchat.command.base.noargs2"));
