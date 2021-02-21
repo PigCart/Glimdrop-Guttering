@@ -12,9 +12,6 @@ import pigcart.glimchat.config.ModConfig;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 public class GlimeshConnectCommand {
     public static boolean alreadyEnabled = false;
@@ -27,26 +24,21 @@ public class GlimeshConnectCommand {
                     ModConfig config = ModConfig.getConfig();
                     config.setChannel(channelName);
                     config.save();
-                    if (alreadyEnabled) {
+                    if (GlimChat.websocketClientEndpoint != null && GlimChat.websocketClientEndpoint.isOpen()) {
                         ctx.getSource().sendFeedback(new TranslatableText("text.glimchat.command.connect.already_enabled"));
                         return 1;
                         // Return a result. -1 is failure, 0 is a pass and 1 is success.
                     }
-
                     if (config.getOauthKey().equals("")) {
                         ctx.getSource().sendFeedback(new TranslatableText("text.glimchat.command.connect.set_config"));
                         return -1;
                     }
-
                     if (config.getChannel().equals("")) {
                         ctx.getSource().sendFeedback(new TranslatableText("text.glimchat.command.connect.set_channel"));
                     }
-
                     try {
                         // open websocket
-                        GlimChat.addGlimeshMessage("", "Opening connection to Glimesh.", Formatting.BOLD);
-                        //final WebsocketClientEndpoint c = new WebsocketClientEndpoint(new URI("wss://glimesh.tv/api/socket/websocket?vsn=2.0.0&client_id=535cd97ab33c5cd159859d4a4849eb7a635f96fead877dd51004c4abb48e1d3d"));
-                        //c.connect();
+                        System.out.println("Opening websocket");
                         GlimChat.websocketClientEndpoint = new WebsocketClientEndpoint(new URI("wss://glimesh.tv/api/socket/websocket?vsn=2.0.0&client_id=535cd97ab33c5cd159859d4a4849eb7a635f96fead877dd51004c4abb48e1d3d"));
                         GlimChat.websocketClientEndpoint.connect();
                         return 1;

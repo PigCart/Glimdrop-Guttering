@@ -1,6 +1,8 @@
 package pigcart.glimchat;
 
 import java.util.UUID;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.client.MinecraftClient;
