@@ -14,7 +14,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 public class GlimeshConnectCommand {
-    public static boolean alreadyEnabled = false;
     public static LiteralArgumentBuilder<CottonClientCommandSource> getArgumentBuilder() {
         return ArgumentBuilders.literal("connect")
                 .then(ArgumentBuilders.argument("channel_name", StringArgumentType.string())
@@ -30,22 +29,28 @@ public class GlimeshConnectCommand {
                         // Return a result. -1 is failure, 0 is a pass and 1 is success.
                     }
                     if (config.getOauthKey().equals("")) {
-                        ctx.getSource().sendFeedback(new TranslatableText("text.glimchat.command.connect.set_config"));
-                        return -1;
-                    }
-                    if (config.getChannel().equals("")) {
-                        ctx.getSource().sendFeedback(new TranslatableText("text.glimchat.command.connect.set_channel"));
-                    }
-                    try {
+                        ctx.getSource().sendFeedback(new TranslatableText("text.glimchat.command.connect.no_auth"));
+                        ctx.getSource().sendFeedback(new TranslatableText("text.glimchat.command.connect.connecting"));
                         // open websocket
                         System.out.println("Opening websocket");
+                        try {
+                            GlimChat.websocketClientEndpoint = new WebsocketClientEndpoint(new URI("wss://glimesh.tv/api/socket/websocket?vsn=2.0.0&client_id=535cd97ab33c5cd159859d4a4849eb7a635f96fead877dd51004c4abb48e1d3d"));
+                            GlimChat.websocketClientEndpoint.connect();
+                            return 1;
+                        } catch (URISyntaxException e) {
+                            e.printStackTrace();
+                            return -1;
+                        }
+                    }
+                        // open websocket
+                    ctx.getSource().sendFeedback(new TranslatableText("text.glimchat.command.connect.connecting"));
+                    System.out.println("Opening websocket");
+                    try {
                         GlimChat.websocketClientEndpoint = new WebsocketClientEndpoint(new URI("wss://glimesh.tv/api/socket/websocket?vsn=2.0.0&client_id=535cd97ab33c5cd159859d4a4849eb7a635f96fead877dd51004c4abb48e1d3d"));
                         GlimChat.websocketClientEndpoint.connect();
                         return 1;
-
-                    } catch (URISyntaxException ex) {
-                        System.err.println("URISyntaxException exception: " + ex.getMessage());
-                        GlimChat.addGlimeshMessage("URISyntaxException exception", ex.getMessage(), Formatting.BOLD);
+                    } catch (URISyntaxException e) {
+                        e.printStackTrace();
                         return -1;
                     }
     }));

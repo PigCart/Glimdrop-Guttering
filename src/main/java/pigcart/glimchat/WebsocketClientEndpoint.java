@@ -3,11 +3,11 @@ package pigcart.glimchat;
 import java.net.URI;
 import java.util.Map;
 
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.drafts.Draft;
 import org.java_websocket.handshake.ServerHandshake;
-import org.json.JSONArray;
 import org.json.JSONObject;
 import pigcart.glimchat.config.ModConfig;
 
@@ -77,7 +77,7 @@ public class WebsocketClientEndpoint extends WebSocketClient {
         }
         // heartbeat response
         else if (message.equals("[null,\"1\",\"phoenix\",\"phx_reply\",{\"response\":{},\"status\":\"ok\"}]")) {
-            System.out.println("badum");
+            System.out.println("heartbeat is ok");
         }
         // Message received when initially connecting to Glimesh
         else if (message.equals("[\"1\",\"1\",\"__absinthe__:control\",\"phx_reply\",{\"response\":{},\"status\":\"ok\"}]")) {
@@ -102,38 +102,31 @@ public class WebsocketClientEndpoint extends WebSocketClient {
         }
         // Message Recieved after joining a chat
         else if (message.startsWith("[\"1\",\"1\",\"__absinthe__:control\",\"phx_reply\",{\"response\":{\"subscriptionId")) {
-            GlimChat.addGlimeshMessage("", "Connected to " + ModConfig.getConfig().getChannel(), Formatting.BOLD);
+            GlimChat.addNotification(new TranslatableText("text.glimchat.websocket.onmessage.subscriptionid").append(ModConfig.getConfig().getChannel()));
         }
         // Message received after "joining"??? a channel that does not exist
         else if (message.equals("[\"1\",\"1\",\"__absinthe__:control\",\"phx_reply\",{\"response\":{\"data\":{\"channel\":null}},\"status\":\"ok\"}]")) {
-            GlimChat.addGlimeshMessage("", "That channel does not exist.", Formatting.BOLD);
+            GlimChat.addNotification(new TranslatableText("text.glimchat.websocket.onmessage.nullchannel"));
             GlimChat.websocketClientEndpoint.close();
         }
         // If it's none of these then idk
         else {
-            GlimChat.addGlimeshMessage("Unexpected Message Received", message, Formatting.BOLD);
+            GlimChat.addNotification(new TranslatableText("text.glimchat.websocket.onmessage.unexpected").append(message));
         }
     }
 
     @Override
     public void onClose(int code, String reason, boolean remote) {
         // The codecodes are documented in class org.java_websocket.framing.CloseFrame
-        GlimChat.addGlimeshMessage("Connection closed by " + (remote ? "Glimesh" : "You") + ". Code: " + code + " Reason: " + reason, "", Formatting.BOLD);
+        GlimChat.addNotification(new TranslatableText("text.glimchat.websocket.onclose").append(String.valueOf(code)));
         // stop heartbeat
         t.cancel(false);
-
-
     }
 
     @Override
     public void onError(Exception ex) {
-        GlimChat.addGlimeshMessage("Error", ex.toString(), Formatting.RED);
+        GlimChat.addNotification(new TranslatableText("text.glimchat.websocket.onerror").append(ex.toString()));
         ex.printStackTrace();
         // if the error is fatal then onClose will be called additionally
-    }
-
-    public void heartbeat() {
-        send("[\"1\",\"1\",\"phoenix\",\"heartbeat\",{}]");
-        // send a heartbeat to Glimesh so the connection won't be closed
     }
 }

@@ -1,8 +1,6 @@
 package pigcart.glimchat;
 
 import java.util.UUID;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.client.MinecraftClient;
@@ -23,6 +21,9 @@ public class GlimChat implements ModInitializer {
         MutableText usernameText = new LiteralText(username).formatted(Formatting.BLUE).append(": ");
         MutableText messageBodyText = new LiteralText(message).formatted(textColor);
         MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, usernameText.append(messageBodyText), UUID.randomUUID());
+    }
+    public static void addNotification(MutableText message) {
+        MinecraftClient.getInstance().inGameHud.addChatMessage(MessageType.CHAT, message, UUID.randomUUID());
     }
 
 }
