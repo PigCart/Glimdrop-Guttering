@@ -19,7 +19,6 @@ public class GlimeshConnectCommand {
                 .then(ArgumentBuilders.argument("channel_name", StringArgumentType.string())
                 .executes(ctx -> {
                     String channelName = StringArgumentType.getString(ctx, "channel_name");
-
                     ModConfig config = ModConfig.getConfig();
                     config.setChannel(channelName);
                     config.save();

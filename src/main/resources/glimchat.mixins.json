@@ -4,6 +4,7 @@
   "package": "pigcart.glimchat.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "KeyboardInputMixin"
   ],
   "client": [
   ],

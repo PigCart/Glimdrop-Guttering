@@ -3,15 +3,24 @@ package pigcart.glimchat;
 import java.net.URI;
 import java.util.Map;
 
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.entity.MovementType;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.math.Vec3d;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.drafts.Draft;
 import org.java_websocket.handshake.ServerHandshake;
+import org.jetbrains.annotations.Nullable;
 import org.json.JSONObject;
 import pigcart.glimchat.config.ModConfig;
 
 import java.util.concurrent.*;
+
+import static net.minecraft.util.Hand.MAIN_HAND;
+import static net.minecraft.util.Hand.OFF_HAND;
 
 /**
  * This example demonstrates how to create a websocket connection to a server. Only the most
@@ -70,9 +79,22 @@ public class WebsocketClientEndpoint extends WebSocketClient {
                 JSONObject channel = chatMessage.getJSONObject("channel");
                 JSONObject streamer = channel.getJSONObject("streamer");
                 String streamerDisplayname = streamer.getString("displayname");
-                GlimChat.addGlimeshMessage("["+streamerDisplayname+"] "+displayname, msg, Formatting.WHITE);
+                GlimChat.addGlimeshMessage("[" + streamerDisplayname + "] " + displayname, msg, Formatting.WHITE);
             } else {
                 GlimChat.addGlimeshMessage(displayname, msg, Formatting.WHITE);
+                }
+            if (ModConfig.getConfig().isPlayEnabled()) {
+                ClientPlayerEntity player = MinecraftClient.getInstance().player;
+                assert player != null;
+                GlimeshPlaysController.process(msg);
+                switch (msg) {
+                    case "JUMP": player.jump(); break;
+                    case "DROP": player.dropSelectedItem(true); break;
+                    case "TALK": player.sendChatMessage("aBoogaAWooglyWooga"); break;
+                    case "SWING HAND": player.swingHand(MAIN_HAND); break;
+                    case "NO THE OTHER ONE": player.swingHand(OFF_HAND); break;
+                    case "MOVE": player.move(MovementType.SELF, new Vec3d(1, 0, 0)); break;
+                }
             }
         }
         // heartbeat response
