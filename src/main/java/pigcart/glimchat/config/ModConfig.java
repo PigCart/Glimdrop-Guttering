@@ -15,7 +15,6 @@ public class ModConfig {
     public static final String DEFAULT_CHANNEL = "";
     public static final String DEFAULT_OAUTH_KEY = "";
     public static final String DEFAULT_PREFIX = ".";
-    public static final boolean DEFAULT_PLAY = false;
 
     private static ModConfig SINGLE_INSTANCE = null;
     private final File configFile;
@@ -23,7 +22,6 @@ public class ModConfig {
     private String channel;
     private String oauthKey;
     private String prefix;
-    private boolean play;
 
     public ModConfig() {
         this.configFile = FabricLoader
@@ -35,7 +33,6 @@ public class ModConfig {
         this.channel = DEFAULT_CHANNEL;
         this.oauthKey = DEFAULT_OAUTH_KEY;
         this.prefix = DEFAULT_PREFIX;
-        this.play = DEFAULT_PLAY;
     }
 
     public static ModConfig getConfig() {
@@ -61,9 +58,6 @@ public class ModConfig {
                 this.prefix = jsonObject.has("prefix")
                         ? jsonObject.getAsJsonPrimitive("prefix").getAsString()
                         : DEFAULT_PREFIX;
-                this.play = jsonObject.has("play")
-                        ? jsonObject.getAsJsonPrimitive("play").getAsBoolean()
-                        : DEFAULT_PLAY;
             }
         } catch (IOException e) {
             // Do nothing, we have no file and thus we have to keep everything as default
@@ -75,7 +69,6 @@ public class ModConfig {
         jsonObject.addProperty("channel", this.channel);
         jsonObject.addProperty("oauthKey", this.oauthKey);
         jsonObject.addProperty("prefix", this.prefix);
-        jsonObject.addProperty("play", this.play);
 
         try (PrintWriter out = new PrintWriter(configFile)) {
             out.println(jsonObject.toString());
@@ -107,8 +100,4 @@ public class ModConfig {
     public void setPrefix(String prefix) {
         this.prefix = prefix;
     }
-
-    public void setPlayEnabled(boolean playEnabled) { this.play = playEnabled; }
-
-    public boolean isPlayEnabled() { return play; }
 }
