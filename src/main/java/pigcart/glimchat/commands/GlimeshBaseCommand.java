@@ -1,18 +1,17 @@
 package pigcart.glimchat.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
-import io.github.cottonmc.clientcommands.ArgumentBuilders;
-import io.github.cottonmc.clientcommands.ClientCommandPlugin;
-import io.github.cottonmc.clientcommands.CottonClientCommandSource;
 import net.minecraft.text.TranslatableText;
+import net.fabricmc.fabric.api.client.command.v1.ClientCommandManager;
+import net.fabricmc.fabric.api.client.command.v1.FabricClientCommandSource;
 
-public class GlimeshBaseCommand implements ClientCommandPlugin {
-    @Override
-    public void registerCommands(CommandDispatcher<CottonClientCommandSource> dispatcher) {
-        dispatcher.register(ArgumentBuilders.literal("glimesh")
-                // The command to run if "glimesh" is entered with the argument "connect"
+public class GlimeshBaseCommand {
+    public static void registerCommands() {
+
+        CommandDispatcher<FabricClientCommandSource> commandDispatcher = ClientCommandManager.DISPATCHER;
+
+        commandDispatcher.register(ClientCommandManager.literal("glimesh")
                 .then(GlimeshConnectCommand.getArgumentBuilder())
-                // If the argument is "disable"
                 .then(GlimeshDisableCommand.getArgumentBuilder())
                 .then(GlimeshPlayCommand.getArgumentBuilder())
                 .executes(source -> {

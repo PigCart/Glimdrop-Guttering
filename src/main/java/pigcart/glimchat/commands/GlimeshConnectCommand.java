@@ -2,10 +2,9 @@ package pigcart.glimchat.commands;
 
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import io.github.cottonmc.clientcommands.ArgumentBuilders;
-import io.github.cottonmc.clientcommands.CottonClientCommandSource;
+import net.fabricmc.fabric.api.client.command.v1.ClientCommandManager;
+import net.fabricmc.fabric.api.client.command.v1.FabricClientCommandSource;
 import net.minecraft.text.TranslatableText;
-import net.minecraft.util.Formatting;
 import pigcart.glimchat.GlimChat;
 import pigcart.glimchat.WebsocketClientEndpoint;
 import pigcart.glimchat.config.ModConfig;
@@ -14,9 +13,9 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 public class GlimeshConnectCommand {
-    public static LiteralArgumentBuilder<CottonClientCommandSource> getArgumentBuilder() {
-        return ArgumentBuilders.literal("connect")
-                .then(ArgumentBuilders.argument("channel_name", StringArgumentType.string())
+    public static LiteralArgumentBuilder<FabricClientCommandSource> getArgumentBuilder() {
+        return ClientCommandManager.literal("connect")
+                .then(ClientCommandManager.argument("channel_name", StringArgumentType.string())
                 .executes(ctx -> {
                     String channelName = StringArgumentType.getString(ctx, "channel_name");
                     ModConfig config = ModConfig.getConfig();

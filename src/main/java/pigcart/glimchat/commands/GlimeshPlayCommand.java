@@ -1,15 +1,15 @@
 package pigcart.glimchat.commands;
 
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import io.github.cottonmc.clientcommands.ArgumentBuilders;
-import io.github.cottonmc.clientcommands.CottonClientCommandSource;
+import net.fabricmc.fabric.api.client.command.v1.ClientCommandManager;
+import net.fabricmc.fabric.api.client.command.v1.FabricClientCommandSource;
 import net.minecraft.text.TranslatableText;
 import pigcart.glimchat.GlimChat;
 import pigcart.glimchat.GlimeshPlaysController;
 
 public class GlimeshPlayCommand {
-    public static LiteralArgumentBuilder<CottonClientCommandSource> getArgumentBuilder() {
-        return ArgumentBuilders.literal("play").executes(ctx -> {
+    public static LiteralArgumentBuilder<FabricClientCommandSource> getArgumentBuilder() {
+        return ClientCommandManager.literal("play").executes(ctx -> {
             if (GlimChat.websocketClientEndpoint.isClosed() || GlimChat.websocketClientEndpoint==null) {
                 ctx.getSource().sendFeedback(new TranslatableText("text.glimchat.command.play.no_connection"));
                 return 1;

@@ -50,15 +50,79 @@ public class GlimeshPlaysController {
                     player.lookAt(EntityAnchorArgumentType.EntityAnchor.FEET, vec3d);
                     break;
                 }
+                // need to figure out vector addition i guess :(
                 case "LEFT": {
                     float lookingY = player.getRotationClient().y;
-                    if ( lookingY == -90) { //If looking East
-                        Vec3d vec3d = new Vec3d(pos.x + 1, pos.y, pos.z - 1); //face north-east
+                    if ( lookingY == 0 ) { //If looking South
+                        Vec3d vec3d = new Vec3d(pos.x + 1, pos.y, pos.z + 1); //Face South-East
                         player.lookAt(EntityAnchorArgumentType.EntityAnchor.FEET, vec3d);
+                        break;
+                    } else if ( lookingY ==  -45 ) { //If looking south-east
+                        Vec3d vec3d = new Vec3d(pos.x + 1 , pos.y, pos.z ); //Face East
+                        player.lookAt(EntityAnchorArgumentType.EntityAnchor.FEET, vec3d);
+                        break;
+                    } else if ( lookingY == -90 ) { //If looking East
+                        Vec3d vec3d = new Vec3d(pos.x + 1, pos.y, pos.z - 1); //Face North-east
+                        player.lookAt(EntityAnchorArgumentType.EntityAnchor.FEET, vec3d);
+                        break;
+                    } else if (lookingY == -135 ) { //If looking North-East
+                        Vec3d vec3d = new Vec3d(pos.x, pos.y, pos.z - 1); //Face North
+                        player.lookAt(EntityAnchorArgumentType.EntityAnchor.FEET, vec3d);
+                        break;
+                    } else if ( lookingY == 180 ) { //If looking North
+                        Vec3d vec3d = new Vec3d(pos.x - 1 , pos.y, pos.z - 1 ); //Face north-west
+                        player.lookAt(EntityAnchorArgumentType.EntityAnchor.FEET, vec3d);
+                        break;
+                    } else if ( lookingY == 135 ) { //If looking North-West
+                        Vec3d vec3d = new Vec3d(pos.x - 1, pos.y, pos.z); //face West
+                        player.lookAt(EntityAnchorArgumentType.EntityAnchor.FEET, vec3d);
+                        break;
+                    } else if ( lookingY == 90 ) { //If looking West
+                        Vec3d vec3d = new Vec3d(pos.x - 1, pos.y, pos.z + 1); //face South-West
+                        player.lookAt(EntityAnchorArgumentType.EntityAnchor.FEET, vec3d);
+                        break;
+                    } else if ( lookingY == 45 ) { //If looking South-West
+                        Vec3d vec3d = new Vec3d(pos.x - 1, pos.y, pos.z + 1); //face South
+                        player.lookAt(EntityAnchorArgumentType.EntityAnchor.FEET, vec3d);
+                        break;
                     }
-                    break;
                 }
-                //
+                case "RIGHT": {
+                    float lookingY = player.getRotationClient().y;
+                    if ( lookingY == 0 ) { //If looking South
+                        Vec3d vec3d = new Vec3d(pos.x - 1, pos.y, pos.z + 1); //Face South-West
+                        player.lookAt(EntityAnchorArgumentType.EntityAnchor.FEET, vec3d);
+                        break;
+                    } else if ( lookingY ==  -45 ) { //If looking south-east
+                        Vec3d vec3d = new Vec3d(pos.x , pos.y, pos.z + 1); //Face South
+                        player.lookAt(EntityAnchorArgumentType.EntityAnchor.FEET, vec3d);
+                        break;
+                    } else if ( lookingY == -90 ) { //If looking East
+                        Vec3d vec3d = new Vec3d(pos.x + 1, pos.y, pos.z + 1); //Face South-east
+                        player.lookAt(EntityAnchorArgumentType.EntityAnchor.FEET, vec3d);
+                        break;
+                    } else if (lookingY == -135 ) { //If looking North-East
+                        Vec3d vec3d = new Vec3d(pos.x + 1, pos.y, pos.z); //Face East
+                        player.lookAt(EntityAnchorArgumentType.EntityAnchor.FEET, vec3d);
+                        break;
+                    } else if ( lookingY == 180 ) { //If looking North
+                        Vec3d vec3d = new Vec3d(pos.x + 1 , pos.y, pos.z - 1 ); //Face north-East
+                        player.lookAt(EntityAnchorArgumentType.EntityAnchor.FEET, vec3d);
+                        break;
+                    } else if ( lookingY == 135 ) { //If looking North-West
+                        Vec3d vec3d = new Vec3d(pos.x, pos.y, pos.z - 1); //face North
+                        player.lookAt(EntityAnchorArgumentType.EntityAnchor.FEET, vec3d);
+                        break;
+                    } else if ( lookingY == 90 ) { //If looking West
+                        Vec3d vec3d = new Vec3d(pos.x - 1, pos.y, pos.z - 1); //face North-West
+                        player.lookAt(EntityAnchorArgumentType.EntityAnchor.FEET, vec3d);
+                        break;
+                    } else if ( lookingY == 45 ) { //If looking South-West
+                        Vec3d vec3d = new Vec3d(pos.x - 1, pos.y, pos.z); //face West
+                        player.lookAt(EntityAnchorArgumentType.EntityAnchor.FEET, vec3d);
+                        break;
+                    }
+                }
                 case "EAST": {
                     Vec3d vec3d = new Vec3d(pos.x + 1, pos.y, pos.z);
                     player.lookAt(EntityAnchorArgumentType.EntityAnchor.FEET, vec3d);

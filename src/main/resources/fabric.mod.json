@@ -11,8 +11,7 @@
   "environment": "client",
   "entrypoints": {
     "main": ["pigcart.glimchat.GlimChat"],
-    "modmenu": ["pigcart.glimchat.config.ModMenuCompat"],
-    "cotton-client-commands": ["pigcart.glimchat.commands.GlimeshBaseCommand"]
+    "modmenu": ["pigcart.glimchat.config.ModMenuCompat"]
   },
   "mixins": [
     "glimchat.mixins.json"
