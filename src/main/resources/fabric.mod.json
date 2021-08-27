@@ -16,7 +16,7 @@
   "icon": "assets/glimchat/icon.png",
   "environment": "client",
   "entrypoints": {
-    "main": ["pigcart.glimchat.GlimChat"],
+    "client": ["pigcart.glimchat.GlimChat"],
     "modmenu": ["pigcart.glimchat.config.ModMenuCompat"]
   },
   "mixins": [

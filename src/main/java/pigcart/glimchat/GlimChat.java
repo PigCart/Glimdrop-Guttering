@@ -2,8 +2,7 @@ package pigcart.glimchat;
 
 import java.util.UUID;
 
-import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
+import net.fabricmc.api.ClientModInitializer;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.network.MessageType;
 import net.minecraft.text.LiteralText;
@@ -12,15 +11,13 @@ import net.minecraft.util.Formatting;
 import pigcart.glimchat.commands.GlimeshBaseCommand;
 import pigcart.glimchat.config.ModConfig;
 
-public class GlimChat implements ModInitializer {
+public class GlimChat implements ClientModInitializer {
     public static WebsocketClientEndpoint websocketClientEndpoint;
     @Override
-    public void onInitialize() {
+    public void onInitializeClient() {
         ModConfig.getConfig().load();
 
-        CommandRegistrationCallback.EVENT.register(((dispatcher, dedicated) -> {
-            GlimeshBaseCommand.registerCommands();
-        }));
+        GlimeshBaseCommand.registerCommands();
     }
 
     public static void addGlimeshMessage(String username, String message, Formatting textColor) {
