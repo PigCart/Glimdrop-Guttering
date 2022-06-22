@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "id": "glimchat",
+  "id": "glimgutter",
   "version": "${version}",
-  "name": "Glimesh Integration",
+  "name": "Glimdrop Guttering",
   "description": "",
   "authors": [
     "PigCart"
@@ -13,14 +13,16 @@
     "issues": "https://github.com/PigCart/glimesh-minecraft-integration/issues"
   },
   "license": "MIT",
-  "icon": "assets/glimchat/icon.png",
+  "icon": "assets/glimgutter/icon.png",
   "environment": "client",
   "entrypoints": {
-    "main": ["pigcart.glimchat.GlimChat"],
-    "modmenu": ["pigcart.glimchat.config.ModMenuCompat"]
+    "client": ["pigcart.glimgutter.GlimGutter"],
+    "modmenu": [
+      "pigcart.glimgutter.config.ModMenuIntegration"
+    ]
   },
   "mixins": [
-    "glimchat.mixins.json"
+    "glimgutter.mixins.json"
   ],
   "depends": {
     "fabricloader": "*",

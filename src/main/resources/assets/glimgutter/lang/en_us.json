@@ -1,0 +1,44 @@
+{
+  "text.autoconfig.glimgutter.title": "Glimdrop Guttering (Config Options do nothing yet - use /glimesh)",
+  "text.autoconfig.glimgutter.category.default": "Glimesh Integration",
+  "text.autoconfig.glimgutter.category.eventCommands": "Event Commands",
+  "text.autoconfig.glimgutter.category.glimeshPlays": "Game Control",
+  "text.autoconfig.glimgutter.category.privateInfo": "Private Info",
+
+  "text.autoconfig.glimgutter.option.sendMessagePrefix": "Prefix (Not Implemented Yet)",
+  "text.autoconfig.glimgutter.option.sendMessagePrefix.tooltip": "Put this at the start of your messages to send them to chat",
+  "text.autoconfig.glimgutter.option.showChatMessages": "Show Chat Messages",
+  "text.autoconfig.glimgutter.option.showFollowMessages": "Show Follower Notifications",
+  "text.autoconfig.glimgutter.option.showSubMessages": "Show Subscriber Notifications",
+
+  "text.autoconfig.glimgutter.option.doFollowCommand": "Do Follow Command",
+  "text.autoconfig.glimgutter.option.followCommand": "Follow Command",
+  "text.autoconfig.glimgutter.option.doSubCommand": "Do Subscription Command",
+  "text.autoconfig.glimgutter.option.subCommand": "Subscription Command",
+  "text.autoconfig.glimgutter.option.doChatCommand": "Do Chat Command",
+  "text.autoconfig.glimgutter.option.chatCommand": "Chat Command",
+
+  "text.autoconfig.glimgutter.option.glimeshPlaying": "Glimesh Plays Minecraft",
+
+  "text.autoconfig.glimgutter.option.authKey": "Auth Key",
+
+  "text.glimgutter.command.base.noargs1": "/glimesh connect CHANNEL_NAME - Connect to chat.",
+  "text.glimgutter.command.base.noargs2": "/glimesh disable - Disables connections.",
+  "text.glimgutter.command.base.noargs3": "/glimesh play - Toggle Glimesh Plays Minecraft.",
+
+  "text.glimgutter.command.disable.already_disabled": "Glimesh integration is already disabled!",
+
+  "text.glimgutter.command.connect.already_enabled": "Glimesh integration is already connected!",
+  "text.glimgutter.command.connect.no_auth": "Auth keys are not implemented yet. to remove this message reset your auth key in the modmenu config.",
+  "text.glimgutter.command.connect.connecting": "Connecting to Glimesh and joining channel: ",
+
+  "text.glimgutter.command.play.no_connection": "Glimesh integration is not enabled, to enable it do /glimesh connect.",
+  "text.glimgutter.command.play.enabled": "Glimesh Plays Minecraft enabled!",
+  "text.glimgutter.command.play.disabled": "Glimesh Plays Minecraft disabled!",
+
+  "text.glimgutter.websocket.onclose": "Connection closed. Code: ",
+  "text.glimgutter.websocket.onerror": "Error: ",
+  "text.glimgutter.websocket.onmessage.subscriptionid": "Connected to ",
+  "text.glimgutter.websocket.onmessage.nullresource": "That channel does not exist!",
+  "text.glimgutter.websocket.onmessage.unexpected": "Unexpected message received: "
+}
