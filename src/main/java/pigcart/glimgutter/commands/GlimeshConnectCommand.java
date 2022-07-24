@@ -27,8 +27,8 @@ public class GlimeshConnectCommand {
                     }
 
                     if (config.authKey.equals("")) {
-                        ctx.getSource().sendFeedback(Component.translatable("text.glimgutter.command.connect.no_auth"));
-                        ctx.getSource().sendFeedback(Component.translatable("text.glimgutter.command.connect.connecting").append(config.channel));
+                        if (config.verboseFeedback) GlimGutter.addInfoChatMsg(Component.literal("Connecting to Glimesh without an auth key"));
+                        ctx.getSource().sendFeedback(Component.translatable("text.glimgutter.command.connect.connecting"));
                         // open websocket
                         try {
                             GlimGutter.glimeshWebSocketClient = new GlimeshWebSocketClient(new URI("wss://glimesh.tv/api/socket/websocket?vsn=2.0.0&client_id=bfba34fd-f6d6-4e12-873a-f1be401299fd"));
@@ -40,8 +40,8 @@ public class GlimeshConnectCommand {
                         }
 
                     } else {
-                        //TODO: open websocket with auth key, allowing for the user to send messages.
-                        ctx.getSource().sendFeedback(Component.translatable("text.glimgutter.command.connect.connecting").append(config.channel));
+                        //TODO: open websocket with auth key, allowing for the user to send messages and mutate other stuff.
+                        ctx.getSource().sendFeedback(Component.translatable("text.glimgutter.command.connect.connecting"));
                         try {
                             GlimGutter.glimeshWebSocketClient = new GlimeshWebSocketClient(new URI("wss://glimesh.tv/api/socket/websocket?vsn=2.0.0&client_id=bfba34fd-f6d6-4e12-873a-f1be401299fd"));
                             GlimGutter.glimeshWebSocketClient.connect();

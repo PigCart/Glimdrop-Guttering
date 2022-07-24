@@ -17,21 +17,17 @@ public class GlimGutter implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        // register commands and config
         ClientCommandRegistrationCallback.EVENT.register(GlimeshBaseCommand::registerCommands);
         AutoConfig.register(ModConfig.class, JanksonConfigSerializer::new);
         config = AutoConfig.getConfigHolder(ModConfig.class).getConfig();
     }
-    public static void addUserChatMsg(String username, String message) {
-        // format chat message and add it to the screen
-        MutableComponent usernameText = Component.literal(username).append(": ").withStyle(ChatFormatting.BLUE);
-        MutableComponent messageBodyText = Component.literal(message).withStyle(ChatFormatting.GRAY);
+    public static void addUserChatMsg(String username, String message, ChatFormatting nameFormatting, ChatFormatting msgFormatting) {
+        MutableComponent usernameText = Component.literal(username).append(": ").withStyle(nameFormatting);
+        MutableComponent messageBodyText = Component.literal(message).withStyle(msgFormatting);
         Minecraft.getInstance().gui.getChat().addMessage(usernameText.append(messageBodyText));
     }
     public static void addInfoChatMsg(MutableComponent message) {
-        // same as above, but is formatted when called
         Minecraft.getInstance().gui.getChat().addMessage(message);
     }
 }
 //TODO: add mc-publish github action
-//TODO: do all the todo comments of things to do

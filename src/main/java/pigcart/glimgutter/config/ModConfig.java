@@ -7,9 +7,7 @@ import me.shedaniel.autoconfig.annotation.ConfigEntry;
 @Config(name = "glimgutter")
 public class ModConfig implements ConfigData {
     public String sendMessagePrefix = ".";
-    public boolean showChatMessages = true;
-    public boolean showFollowMessages = true;
-    public boolean showSubMessages = true;
+    public boolean verboseFeedback = false;
 
     @ConfigEntry.Category(value = "eventCommands")
     public boolean doSubCommand = false;
@@ -23,9 +21,6 @@ public class ModConfig implements ConfigData {
     public boolean doChatCommand = false;
     @ConfigEntry.Category(value = "eventCommands")
     public String chatCommand = "Not implemented yet!";
-
-    @ConfigEntry.Category(value = "glimeshPlays")
-    public String glimeshPlaying = "use /glimesh play";
 
     @ConfigEntry.Category(value = "privateInfo")
     public String authKey = "Not implemented yet!";

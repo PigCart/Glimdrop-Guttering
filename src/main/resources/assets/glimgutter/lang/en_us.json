@@ -29,16 +29,32 @@
   "text.glimgutter.command.disable.already_disabled": "Glimesh integration is already disabled!",
 
   "text.glimgutter.command.connect.already_enabled": "Glimesh integration is already connected!",
-  "text.glimgutter.command.connect.no_auth": "Auth keys are not implemented yet. to remove this message reset your auth key in the modmenu config.",
-  "text.glimgutter.command.connect.connecting": "Connecting to Glimesh and joining channel: ",
+  "text.glimgutter.command.connect.connecting": "Connecting to Glimesh",
 
   "text.glimgutter.command.play.no_connection": "Glimesh integration is not enabled, to enable it do /glimesh connect.",
   "text.glimgutter.command.play.enabled": "Glimesh Plays Minecraft enabled!",
   "text.glimgutter.command.play.disabled": "Glimesh Plays Minecraft disabled!",
 
-  "text.glimgutter.websocket.onclose": "Connection closed. Code: ",
   "text.glimgutter.websocket.onerror": "Error: ",
   "text.glimgutter.websocket.onmessage.subscriptionid": "Connected to ",
   "text.glimgutter.websocket.onmessage.nullresource": "That channel does not exist!",
-  "text.glimgutter.websocket.onmessage.unexpected": "Unexpected message received: "
+  "text.glimgutter.websocket.onmessage.unexpected": "Unexpected message received: ",
+  "text.glimgutter.websocket.onclose.1000": "Connection closed",
+  "text.glimgutter.websocket.onclose.1001": "Connection closed: GOING_AWAY - Glimesh may be down!",
+  "text.glimgutter.websocket.onclose.1002": "Connection closed: PROTOCOL_ERROR",
+  "text.glimgutter.websocket.onclose.1003": "Connection closed: REFUSE - the data sent or received cannot be accepted",
+  "text.glimgutter.websocket.onclose.1005": "Connection closed: No reason provided",
+  "text.glimgutter.websocket.onclose.1006": "Connection closed: ABNORMAL_CLOSE",
+  "text.glimgutter.websocket.onclose.1007": "Connection closed: NO_UTF8 - the data sent or received is not the right type",
+  "text.glimgutter.websocket.onclose.1008": "Connection closed: POLICY_VALIDATION",
+  "text.glimgutter.websocket.onclose.1009": "Connection closed: A message was too big to process",
+  "text.glimgutter.websocket.onclose.1010": "Connection closed: EXTENSION",
+  "text.glimgutter.websocket.onclose.1011": "Connection closed: UNEXPECTED_CONDITION",
+  "text.glimgutter.websocket.onclose.1012": "Connection closed: Glimesh is restarting",
+  "text.glimgutter.websocket.onclose.1013": "Connection closed: Glimesh may be overloaded right now, try again later.",
+  "text.glimgutter.websocket.onclose.1014": "Connection closed: BAD GATEWAY",
+  "text.glimgutter.websocket.onclose.1015": "Connection closed: TLS ERROR",
+  "text.glimgutter.websocket.onclose.-1": "Connection closed: NEVER CONNECTED",
+  "text.glimgutter.websocket.onclose.-2": "Connection closed: BUGGY CLOSE"
+
 }

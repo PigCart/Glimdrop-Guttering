@@ -3,6 +3,7 @@ package pigcart.glimgutter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.Map;
@@ -11,8 +12,9 @@ import java.util.concurrent.ConcurrentHashMap;
 public class GlimeshPlaysController {
     public static Map<String, Long> movementFlags = new ConcurrentHashMap<>();
     public static Map<String, Long> directionFlags = new ConcurrentHashMap<>();
-    public static long timestamp = System.currentTimeMillis(), pressDuration = 2000L;
+    public static long timestamp = System.currentTimeMillis(), pressDuration = 100L;
     public static boolean glimeshPlays;
+    private static long actionLength = 1;
 
     static {
         movementFlags.put("A", 0L);
@@ -31,8 +33,18 @@ public class GlimeshPlaysController {
     }
 
     public static void process(String msg) {
-        // TODO: add timer for how long the action should last
-        if (movementFlags.containsKey(msg)) movementFlags.replace(msg, timestamp);
+        String[] actionArgs = msg.split("\\s+");
+        if (actionArgs.length > 1) {
+            try {
+                actionLength = 200L * Integer.parseInt(actionArgs[1]);
+                // TODO: fix action Lengths
+            } catch (NumberFormatException e) {
+                //e.printStackTrace();
+            }
+        }
+
+        if (movementFlags.containsKey(msg)) movementFlags.replace(actionArgs[0], timestamp+actionLength);
+
         else {
         //else if (directionFlags.containsKey(msg)) {
             LocalPlayer player = Minecraft.getInstance().player;
