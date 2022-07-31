@@ -35,6 +35,7 @@ public class GlimeshWebSocketClient extends WebSocketClient {
 
     @Override
     public void onOpen(ServerHandshake handshakedata) {
+        if (config.verboseFeedback) GlimGutter.addInfoChatMsg(Component.literal("Websocket open. sending join request"));
         send("[\"1\",\"join\",\"__absinthe__:control\",\"phx_join\",{}]");
 
         heartbeat = executor.scheduleAtFixedRate(new Heartbeat(), 30, 30, TimeUnit.SECONDS);
@@ -44,7 +45,6 @@ public class GlimeshWebSocketClient extends WebSocketClient {
         subSubId = "";
     }
 
-    // here we deal with the process of connecting to glimesh and extracting the desired information from the api responses
     @Override
     public void onMessage(String message) {
         Map<String, Object> glimeshResponseMap = JsonFlattener.flattenAsMap(message);
@@ -99,7 +99,7 @@ public class GlimeshWebSocketClient extends WebSocketClient {
             if (glimeshResponseMap.get("[4].status").toString().equals("error")) GlimGutter.addInfoChatMsg(Component.literal("Error from request for "+glimeshResponseMap.get("[1]")+": "+glimeshResponseMap.get("[4].response.errors[0].message").toString()).withStyle(ChatFormatting.RED));
             switch (queryRef) {
                 case "join" -> { // joined the websocket - now request subscriptions
-                    if (config.verboseFeedback) GlimGutter.addInfoChatMsg(Component.literal("Requesting Subscriptions"));
+                    if (config.verboseFeedback) GlimGutter.addInfoChatMsg(Component.literal("Joined. Requesting Subscriptions"));
                     if (GlimGutter.config.channel.equals(".")) { // entering "." instead of a channel name will connect to every chat
                         send("[\"1\",\"chatSub\",\"__absinthe__:control\",\"doc\",{\"query\":\"subscription{chatMessage{channel{streamer{displayname}},user{displayname},message}}\"}]");
                         send("[\"1\",\"followSub\",\"__absinthe__:control\",\"doc\",{\"query\":\"subscription{followers{streamer{displayname},user{displayname}}}\",\"variables\":{}}]");
