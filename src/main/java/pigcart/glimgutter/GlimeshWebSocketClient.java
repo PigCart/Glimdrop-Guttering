@@ -99,7 +99,8 @@ public class GlimeshWebSocketClient extends WebSocketClient {
             if (glimeshResponseMap.get("[4].status").toString().equals("error")) GlimGutter.addInfoChatMsg(Component.literal("Error from request for "+glimeshResponseMap.get("[1]")+": "+glimeshResponseMap.get("[4].response.errors[0].message").toString()).withStyle(ChatFormatting.RED));
             switch (queryRef) {
                 case "join" -> { // joined the websocket - now request subscriptions
-                    if (config.verboseFeedback) GlimGutter.addInfoChatMsg(Component.literal("Joined. Requesting Subscriptions"));
+                    GlimGutter.addInfoChatMsg(Component.literal("connected to "+config.channel));
+                    if (config.verboseFeedback) GlimGutter.addInfoChatMsg(Component.literal("Requesting Subscriptions"));
                     if (GlimGutter.config.channel.equals(".")) { // entering "." instead of a channel name will connect to every chat
                         send("[\"1\",\"chatSub\",\"__absinthe__:control\",\"doc\",{\"query\":\"subscription{chatMessage{channel{streamer{displayname}},user{displayname},message}}\"}]");
                         send("[\"1\",\"followSub\",\"__absinthe__:control\",\"doc\",{\"query\":\"subscription{followers{streamer{displayname},user{displayname}}}\",\"variables\":{}}]");

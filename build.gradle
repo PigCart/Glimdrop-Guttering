@@ -1,6 +1,7 @@
 plugins {
     id 'fabric-loom' version '0.12-SNAPSHOT'
     id 'maven-publish'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
 sourceCompatibility = JavaVersion.VERSION_17
@@ -9,6 +10,10 @@ targetCompatibility = JavaVersion.VERSION_17
 archivesBaseName = project.archives_base_name
 version = project.mod_version
 group = project.maven_group
+
+configurations {
+    shade
+}
 
 repositories {
     mavenCentral()
@@ -34,12 +39,30 @@ dependencies {
     }
 
     // wacko websocket stuff
-    implementation "org.java-websocket:Java-WebSocket:1.5.1"
-    include "org.java-websocket:Java-WebSocket:1.5.1"
+    implementation include("org.java-websocket:Java-WebSocket:1.5.1")
 
     // json-flattener
-    implementation group: 'com.github.wnameless.json', name: 'json-flattener', version: '0.12.0'
-    include group: 'com.github.wnameless.json', name: 'json-flattener', version: '0.12.0'
+    implementation "com.github.wnameless.json:json-flattener:0.13.0"
+    shade "com.github.wnameless.json:json-flattener:0.13.0"
+}
+
+shadowJar {
+    relocate "com.github", "pigcart.glimgutter.shadowed.com.github"
+    relocate "org.apache", "pigcart.glimgutter.shadowed.org.apache"
+    relocate "com.fasterxml", "pigcart.glimgutter.shadowed.com.fasterxml"
+    configurations = [project.configurations.shade]
+    exclude('META-INF/**', '**/*.pdn', '**/*.bbmodel')
+    from('LICENSE.md', 'NOTICE.txt')
+    from('licenses') {
+        into('licenses')
+    }
+}
+prepareRemapJar {
+    dependsOn(shadowJar)
+}
+remapJar {
+    dependsOn(shadowJar)
+    input = (shadowJar.archivePath)
 }
 
 processResources {
