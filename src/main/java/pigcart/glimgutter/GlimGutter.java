@@ -29,5 +29,12 @@ public class GlimGutter implements ClientModInitializer {
     public static void addInfoChatMsg(MutableComponent message) {
         Minecraft.getInstance().gui.getChat().addMessage(message);
     }
+    public static void runCommand(String cmd, String user) {
+        if (cmd.contains("%USERNAME%")) {
+            cmd = cmd.replaceAll("%USERNAME%", user);
+        }
+        assert Minecraft.getInstance().player != null;
+        Minecraft.getInstance().player.command(cmd);
+    }
 }
 //TODO: add mc-publish github action

@@ -7,6 +7,7 @@
 
   "text.autoconfig.glimgutter.option.sendMessagePrefix": "Prefix (Not Implemented Yet)",
   "text.autoconfig.glimgutter.option.sendMessagePrefix.tooltip": "Put this at the start of your messages to send them to chat",
+  "text.autoconfig.glimgutter.option.verboseFeedback": "Verbose Feedback",
   "text.autoconfig.glimgutter.option.showChatMessages": "Show Chat Messages",
   "text.autoconfig.glimgutter.option.showFollowMessages": "Show Follower Notifications",
   "text.autoconfig.glimgutter.option.showSubMessages": "Show Subscriber Notifications",

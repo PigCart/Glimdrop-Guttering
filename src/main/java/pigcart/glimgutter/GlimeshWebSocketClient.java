@@ -3,8 +3,10 @@ package pigcart.glimgutter;
 import java.net.URI;
 
 import com.github.wnameless.json.flattener.JsonFlattener;
+import com.mojang.authlib.minecraft.client.MinecraftClient;
 import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
@@ -68,7 +70,9 @@ public class GlimeshWebSocketClient extends WebSocketClient {
 
         if (event.equals("subscription:data")) {
             if (topic.equals(chatSubId)) {
-                //TODO: run the chat event command here
+                if (config.doChatCommand) {
+                    GlimGutter.runCommand(config.chatCommand, glimeshResponseMap.get("[4].result.data.chatMessage.user.displayname").toString());
+                }
                 if (GlimeshPlaysController.glimeshPlays) {
                     GlimeshPlaysController.process(glimeshResponseMap.get("[4].result.data.chatMessage.message").toString());
                 }
@@ -79,7 +83,9 @@ public class GlimeshWebSocketClient extends WebSocketClient {
                 GlimGutter.addUserChatMsg(glimeshResponseMap.get("[4].result.data.chatMessage.user.displayname").toString(), glimeshResponseMap.get("[4].result.data.chatMessage.message").toString(), ChatFormatting.BLUE, ChatFormatting.GRAY);
 
             } else if (topic.equals(followSubId)) {
-                //TODO: run the follow event command here
+                if (config.doFollowCommand) {
+                    GlimGutter.runCommand(config.followCommand, glimeshResponseMap.get("[4].result.data.followers.user.displayname").toString());
+                }
                 if (config.channel.equals(".")) {
                     GlimGutter.addInfoChatMsg(Component.literal("["+glimeshResponseMap.get("[4].result.data.followers.streamer.displayname")+"] "+glimeshResponseMap.get("[4].result.data.followers.user.displayname").toString()+" just followed!").withStyle(ChatFormatting.AQUA));
                     return;
@@ -87,7 +93,9 @@ public class GlimeshWebSocketClient extends WebSocketClient {
                 GlimGutter.addInfoChatMsg(Component.literal(glimeshResponseMap.get("[4].result.data.followers.user.displayname").toString()+" just followed!").withStyle(ChatFormatting.AQUA));
 
             } else if (topic.equals(subSubId) && glimeshResponseMap.get("[4].result.data.chatMessage.isSubscriptionMessage").equals(true)) { //TODO: test if sub events actually work lol
-                //TODO: run the sub event command here
+                if (config.doSubCommand) {
+                    GlimGutter.runCommand(config.subCommand, glimeshResponseMap.get("[4].result.data.chatMessage.user.displayname").toString());
+                }
                 if (config.channel.equals(".")) {
                     GlimGutter.addInfoChatMsg(Component.literal("["+glimeshResponseMap.get("[4].result.data.chatMessage.channel.streamer.displayname").toString()+"] "+glimeshResponseMap.get("[4].result.data.chatMessage.user.displayname").toString() + " just subscribed!").withStyle(ChatFormatting.DARK_PURPLE));
                     return;
